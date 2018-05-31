@@ -23,8 +23,7 @@ contract TokenDistributor is Ownable {
     }
 
     function isDistributionDue () public view returns (bool) {
-      uint256 balance = getTokenBalance(_token);
-      return balance > 1;
+      return getTokenBalance(targetToken) > 1;
     }
 
     function countStakeholders () public view returns (uint256) {
@@ -36,11 +35,11 @@ contract TokenDistributor is Ownable {
       return token.balanceOf(address(this));
     }
 
-    function getPortion (_total) public view returns (uint256) {
-      return total.div(stakeHolders.length);
+    function getPortion (uint256 _total) public view returns (uint256) {
+      return _total.div(stakeHolders.length);
     }
 
-    function setStakeholder (_stakeHolder) public onlyOwner returns (bool) {
+    function setStakeholder (address _stakeHolder) public onlyOwner returns (bool) {
       require(countStakeholders() < maxStakeHolders, 'Max StakeHolders set');
       stakeHolders.push(_stakeHolder);
       return true;
