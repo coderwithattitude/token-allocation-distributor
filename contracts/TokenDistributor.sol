@@ -22,6 +22,11 @@ contract TokenDistributor is Ownable {
       }
     }
 
+    function isDistributionDue () public view returns (bool) {
+      uint256 balance = getTokenBalance(_token);
+      return balance > 1;
+    }
+
     function countStakeholders () public view returns (uint256) {
       return stakeHolders.length;
     }
