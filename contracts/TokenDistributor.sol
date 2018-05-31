@@ -10,9 +10,16 @@ contract TokenDistributor is Ownable {
     address targetToken;
     address [] stakeHolders;
     uint256 maxStakeHolders;
+    event InsufficientTokenBalance( address indexed _token, uint256 _time );
+    event TokensDistributed( address indexed _token, uint256 _total, uint256 _time );
 
-    constructor (_targetToken,_totalStakeHolders) Ownable() {
+    constructor ( address _targetToken, uint256 _totalStakeHolders, address[] _stakeHolders) Ownable() {
       maxStakeHolders = _totalStakeHolders;
+      if (_stakeHolders.length > 0) {
+        for (uint256 count = 0; count < stakeHolders.length && count < _totalStakeHolders; count++) {
+          setStakeholder( stakeHolders[count] );
+        }
+      }
     }
 
     function countStakeholders () public view returns (uint256) {
@@ -42,10 +49,17 @@ contract TokenDistributor is Ownable {
     function distribute (address _token) public returns (bool) {
         uint256 balance = getTokenBalance(_token);
         uint256 perStakeHolder = getPortion(balance);
-        for (uint256 count = 0; count < stakeHolders.length; count++) {
-          _transfer(_token, stakeHolders[count], perStakeHolder);
+
+        if (balance < 1) {
+          emit InsufficientTokenBalance( _token, block.timestamp );
+          return false;
+        } else {
+          for (uint256 count = 0; count < stakeHolders.length; count++) {
+            _transfer(_token, stakeHolders[count], perStakeHolder);
+          }
+          emit TokensDistributed( _token, balance, block.timestamp );
+          return true;
         }
-        return true;
     }
 
     function () public {
