@@ -48,9 +48,15 @@ contract TokenDistributor is Ownable {
       return true;
     }
 
-    function _transfer(address _token, address _recipient, uint256 _value) internal {
+    function _transfer (address _token, address _recipient, uint256 _value) internal {
       ERC20Basic token = ERC20Basic(_token);
       token.transfer(_recipient, _value);
+    }
+
+    function _transferRemaining (address _token, address _recipient) internal {
+      uint256 balance = getTokenBalance(_token);
+      require( getPortion(balance) == 0);
+      _transfer (_token, _recipient, balance);
     }
 
     function distribute (address _token) public returns (bool) {
@@ -64,6 +70,11 @@ contract TokenDistributor is Ownable {
           for (uint256 count = 0; count < stakeHolders.length; count++) {
             _transfer(_token, stakeHolders[count], perStakeHolder);
           }
+
+          if (getTokenBalance(_token) > 0) {
+            _transferRemaining(_token, owner);
+          }
+
           emit TokensDistributed( _token, balance, block.timestamp );
           return true;
         }

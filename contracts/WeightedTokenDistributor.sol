@@ -56,6 +56,11 @@ contract WeightedTokenDistributor is TokenDistributor {
       revert('Kindly set Weights for stakeHolder');
     }
 
+    function _transferRemaining (address _token, address _recipient) internal {
+      uint256 balance = getTokenBalance(_token);
+      _transfer (_token, _recipient, balance);
+    }
+
     function distribute (address _token) public returns (bool) {
         uint256 balance = getTokenBalance(_token);
 
@@ -67,6 +72,11 @@ contract WeightedTokenDistributor is TokenDistributor {
             uint256 perStakeHolder = getPortion(balance, stakeHolders[count]);
             _transfer(_token, stakeHolders[count], perStakeHolder);
           }
+
+          if (getTokenBalance(_token) > 0) {
+            _transferRemaining(_token, owner);
+          }
+
           emit TokensDistributed( _token, balance, block.timestamp );
           return true;
         }
