@@ -57,8 +57,9 @@ contract WeightedTokenDistributor is TokenDistributor {
             _transfer(_token, stakeHolders[count], perStakeHolder);
           }
 
-          if (getTokenBalance(_token) > 0) {
-            _transferRemaining(_token, owner);
+          uint256 newBalance = getTokenBalance(_token);
+          if (newBalance > 0) {
+            _transfer(_token, owner, newBalance);
           }
 
           emit TokensDistributed( _token, balance, block.timestamp );
