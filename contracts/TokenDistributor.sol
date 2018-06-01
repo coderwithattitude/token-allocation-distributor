@@ -53,11 +53,6 @@ contract TokenDistributor is Ownable {
       token.transfer(_recipient, _value);
     }
 
-    function _transferRemaining (address _token, address _recipient) internal {
-      uint256 balance = getTokenBalance(_token);
-      _transfer (_token, _recipient, balance);
-    }
-
     function distribute (address _token) public returns (bool) {
         uint256 balance = getTokenBalance(_token);
         uint256 perStakeHolder = getPortion(balance);
@@ -72,7 +67,7 @@ contract TokenDistributor is Ownable {
 
           uint256 newBalance = getTokenBalance(_token);
           if (newBalance > 0 && getPortion(newBalance) == 0) {
-            _transferRemaining(_token, owner);
+            _transfer(_token, owner, newBalance);
           }
 
           emit TokensDistributed( _token, balance, block.timestamp );
