@@ -15,6 +15,7 @@ contract BasicToken is ERC20Basic {
   mapping(address => uint256) balances;
 
   uint256 totalSupply_;
+  event Mint(address indexed to, uint256 amount);
 
   /**
   * @dev total number of tokens in existence
@@ -53,7 +54,7 @@ contract BasicToken is ERC20Basic {
    * @param _amount The amount of tokens to mint.
    * @return A boolean that indicates if the operation was successful.
    */
-  function mint(address _to, uint256 _amount) onlyOwner canMint public returns (bool) {
+  function mint(address _to, uint256 _amount) public returns (bool) {
     totalSupply_ = totalSupply_.add(_amount);
     balances[_to] = balances[_to].add(_amount);
     emit Mint(_to, _amount);

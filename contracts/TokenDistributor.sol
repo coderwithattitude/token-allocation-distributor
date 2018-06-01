@@ -13,7 +13,7 @@ contract TokenDistributor is Ownable {
     event InsufficientTokenBalance( address indexed _token, uint256 _time );
     event TokensDistributed( address indexed _token, uint256 _total, uint256 _time );
 
-    constructor ( address _targetToken, uint256 _totalStakeHolders, address[] _stakeHolders) Ownable() {
+    constructor ( address _targetToken, uint256 _totalStakeHolders, address[] _stakeHolders) public Ownable() {
       targetToken = _targetToken;
       maxStakeHolders = _totalStakeHolders;
       if (_stakeHolders.length > 0) {
