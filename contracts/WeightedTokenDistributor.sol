@@ -46,13 +46,13 @@ contract WeightedTokenDistributor is TokenDistributor {
       revert('Kindly indicate stakeHolder');
     }
 
-    function setStakeholder (address _stakeHolder, uint256 _weight) public onlyOwner returns (bool) {
+    function setStakeholder (address _stakeHolder, uint256 _weight) internal onlyOwner returns (bool) {
       stakeHoldersWeight.push(_weight);
       require(super.setStakeholder(_stakeHolder));
       return true;
     }
 
-    function setStakeholder (address _stakeHolder) public onlyOwner returns (bool) {
+    function setStakeholder (address _stakeHolder) internal onlyOwner returns (bool) {
       revert('Kindly set Weights for stakeHolder');
     }
 

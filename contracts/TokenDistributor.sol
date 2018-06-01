@@ -42,7 +42,7 @@ contract TokenDistributor is Ownable {
       return _total.div(stakeHolders.length);
     }
 
-    function setStakeholder (address _stakeHolder) public onlyOwner returns (bool) {
+    function setStakeholder (address _stakeHolder) internal onlyOwner returns (bool) {
       require(countStakeholders() < maxStakeHolders, 'Max StakeHolders set');
       stakeHolders.push(_stakeHolder);
       return true;
