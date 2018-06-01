@@ -18,7 +18,9 @@ contract TokenDistributor is Ownable {
       maxStakeHolders = _totalStakeHolders;
       if (_stakeHolders.length > 0) {
         for (uint256 count = 0; count < stakeHolders.length && count < _totalStakeHolders; count++) {
-          setStakeholder( stakeHolders[count] );
+          if (stakeHolders[count] != 0x0) {
+            setStakeholder( stakeHolders[count] );
+          }
         }
       }
     }
