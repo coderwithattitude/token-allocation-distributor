@@ -55,7 +55,6 @@ contract TokenDistributor is Ownable {
 
     function _transferRemaining (address _token, address _recipient) internal {
       uint256 balance = getTokenBalance(_token);
-      require( getPortion(balance) == 0);
       _transfer (_token, _recipient, balance);
     }
 
@@ -71,7 +70,8 @@ contract TokenDistributor is Ownable {
             _transfer(_token, stakeHolders[count], perStakeHolder);
           }
 
-          if (getTokenBalance(_token) > 0) {
+          uint256 newBalance = getTokenBalance(_token);
+          if (newBalance > 0 && getPortion(newBalance) == 0) {
             _transferRemaining(_token, owner);
           }
 
