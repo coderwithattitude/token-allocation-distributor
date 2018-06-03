@@ -42,10 +42,10 @@ contract('==TokenDistributor==', (accounts) => {
     console.log('TokenDistributor: ',instance.address)
   })
 
-  describe('setStakeholder()', () => {
+  describe('_setStakeholder()', () => {
 
     it('Should fail to access setHolder', () => {
-      assert.strictEqual(instance.setStakeholder, undefined, 'setStakeholder function could be accessed');
+      assert.strictEqual(instance._setStakeholder, undefined, 'setStakeholder function could be accessed');
     })
   })
 
