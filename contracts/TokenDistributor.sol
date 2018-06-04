@@ -19,7 +19,7 @@ contract TokenDistributor is Ownable {
       if (_stakeHolders.length > 0) {
         for (uint256 count = 0; count < _stakeHolders.length && count < _totalStakeHolders; count++) {
           if (_stakeHolders[count] != 0x0) {
-            _setStakeholder( _stakeHolders[count] );
+            _setStakeHolder( _stakeHolders[count] );
           }
         }
       }
