@@ -42,9 +42,9 @@ contract WeightedTokenDistributor is TokenDistributor {
       return true;
     }
 
-    // function _setStakeholder (address _stakeHolder) internal onlyOwner returns (bool) {
-    //   revert('Kindly set Weights for stakeHolder');
-    // }
+    function _setStakeholder (address _stakeHolder) internal onlyOwner returns (bool) {
+      revert('Kindly set Weights for stakeHolder');
+    }
 
     function distribute (address _token) public returns (bool) {
         uint256 balance = getTokenBalance(_token);
