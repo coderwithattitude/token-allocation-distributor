@@ -19,7 +19,7 @@ contract TokenDistributor is Ownable {
     //   if (_stakeHolders.length > 0) {
     //     for (uint256 count = 0; count < stakeHolders.length && count < _totalStakeHolders; count++) {
     //       if (stakeHolders[count] != 0x0) {
-    //         setStakeholder( stakeHolders[count] );
+    //         _setStakeholder( stakeHolders[count] );
     //       }
     //     }
     //   }
@@ -42,11 +42,11 @@ contract TokenDistributor is Ownable {
       return _total.div(stakeHolders.length);
     }
 
-    // function _setStakeholder (address _stakeHolder) internal onlyOwner returns (bool) {
-    //   require(countStakeholders() < maxStakeHolders, 'Max StakeHolders set');
-    //   stakeHolders.push(_stakeHolder);
-    //   return true;
-    // }
+    function _setStakeholder (address _stakeHolder) internal onlyOwner returns (bool) {
+      require(countStakeholders() < maxStakeHolders, 'Max StakeHolders set');
+      stakeHolders.push(_stakeHolder);
+      return true;
+    }
 
     function _transfer (address _token, address _recipient, uint256 _value) internal {
       ERC20Basic token = ERC20Basic(_token);

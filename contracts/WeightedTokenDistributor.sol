@@ -15,7 +15,7 @@ contract WeightedTokenDistributor is TokenDistributor {
       if (_stakeHolders.length > 0) {
         for (uint256 count = 0; count < stakeHolders.length && count < _totalStakeHolders; count++) {
           if (stakeHolders[count] != 0x0) {
-            setStakeholder( stakeHolders[count], _weights[count] );
+            _setStakeholder( stakeHolders[count], _weights[count] );
           }
         }
       }
@@ -36,11 +36,9 @@ contract WeightedTokenDistributor is TokenDistributor {
       revert('Kindly indicate stakeHolder');
     }
 
-    function setStakeholder (address _stakeHolder, uint256 _weight) internal onlyOwner returns (bool) {
+    function _setStakeholder (address _stakeHolder, uint256 _weight) internal onlyOwner returns (bool) {
       stakeHoldersWeight[_stakeHolder] = _weight;
-      // require(countStakeholders() < maxStakeHolders, 'Max StakeHolders set');
-      stakeHolders.push(_stakeHolder);
-      // require(super.setStakeholder(_stakeHolder));
+      require(super._setStakeholder(_stakeHolder));
       return true;
     }
 
