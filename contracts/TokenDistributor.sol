@@ -7,23 +7,23 @@ import "zeppelin-solidity/contracts/token/ERC20/ERC20Basic.sol";
 contract TokenDistributor is Ownable {
     using SafeMath for uint;
 
-    address targetToken;
-    address [] stakeHolders;
-    uint256 maxStakeHolders;
+    address public targetToken;
+    address [] public stakeHolders;
+    uint256 public maxStakeHolders;
     event InsufficientTokenBalance( address indexed _token, uint256 _time );
     event TokensDistributed( address indexed _token, uint256 _total, uint256 _time );
 
-    constructor ( address _targetToken, uint256 _totalStakeHolders, address[] _stakeHolders) public Ownable() {
-      targetToken = _targetToken;
-      maxStakeHolders = _totalStakeHolders;
-      if (_stakeHolders.length > 0) {
-        for (uint256 count = 0; count < stakeHolders.length && count < _totalStakeHolders; count++) {
-          if (stakeHolders[count] != 0x0) {
-            setStakeholder( stakeHolders[count] );
-          }
-        }
-      }
-    }
+    // constructor ( address _targetToken, uint256 _totalStakeHolders, address[] _stakeHolders) public Ownable() {
+    //   targetToken = _targetToken;
+    //   maxStakeHolders = _totalStakeHolders;
+    //   if (_stakeHolders.length > 0) {
+    //     for (uint256 count = 0; count < stakeHolders.length && count < _totalStakeHolders; count++) {
+    //       if (stakeHolders[count] != 0x0) {
+    //         setStakeholder( stakeHolders[count] );
+    //       }
+    //     }
+    //   }
+    // }
 
     function isDistributionDue () public view returns (bool) {
       return getTokenBalance(targetToken) > 1;
@@ -42,11 +42,11 @@ contract TokenDistributor is Ownable {
       return _total.div(stakeHolders.length);
     }
 
-    function setStakeholder (address _stakeHolder) internal onlyOwner returns (bool) {
-      require(countStakeholders() < maxStakeHolders, 'Max StakeHolders set');
-      stakeHolders.push(_stakeHolder);
-      return true;
-    }
+    // function setStakeholder (address _stakeHolder) internal onlyOwner returns (bool) {
+    //   require(countStakeholders() < maxStakeHolders, 'Max StakeHolders set');
+    //   stakeHolders.push(_stakeHolder);
+    //   return true;
+    // }
 
     function _transfer (address _token, address _recipient, uint256 _value) internal {
       ERC20Basic token = ERC20Basic(_token);

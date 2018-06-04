@@ -8,7 +8,8 @@ contract WeightedTokenDistributor is TokenDistributor {
     mapping( address => uint256) stakeHoldersWeight;
 
     constructor ( address _targetToken, uint256 _totalStakeHolders, address[] _stakeHolders, uint256[] _weights) public Ownable()
-    TokenDistributor(_targetToken, _totalStakeHolders, _stakeHolders) {
+    // TokenDistributor(_targetToken, _totalStakeHolders, _stakeHolders) {
+    {
       targetToken = _targetToken;
       maxStakeHolders = _totalStakeHolders;
       if (_stakeHolders.length > 0) {
@@ -37,13 +38,15 @@ contract WeightedTokenDistributor is TokenDistributor {
 
     function setStakeholder (address _stakeHolder, uint256 _weight) internal onlyOwner returns (bool) {
       stakeHoldersWeight[_stakeHolder] = _weight;
-      require(super.setStakeholder(_stakeHolder));
+      // require(countStakeholders() < maxStakeHolders, 'Max StakeHolders set');
+      stakeHolders.push(_stakeHolder);
+      // require(super.setStakeholder(_stakeHolder));
       return true;
     }
 
-    function setStakeholder (address _stakeHolder) internal onlyOwner returns (bool) {
-      revert('Kindly set Weights for stakeHolder');
-    }
+    // function setStakeholder (address _stakeHolder) internal onlyOwner returns (bool) {
+      // revert('Kindly set Weights for stakeHolder');
+    // }
 
     function distribute (address _token) public returns (bool) {
         uint256 balance = getTokenBalance(_token);
