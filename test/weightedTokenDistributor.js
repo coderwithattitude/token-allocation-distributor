@@ -21,7 +21,7 @@ contract("Weighted Token Distributor", (accounts) => {
         dummyToken = await DummyToken.new();
         assert(dummyToken.address, "Dummy Token was deployed and has an address.");
 
-        console.log(initialStakeholders)
+        // console.log(initialStakeholders)
 
         weightedTokenDistributor = await WeightedTokenDistributor.new(
             dummyToken.address,
