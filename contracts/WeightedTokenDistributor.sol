@@ -8,8 +8,7 @@ contract WeightedTokenDistributor is TokenDistributor {
     mapping( address => uint256) stakeHoldersWeight;
 
     constructor ( address _targetToken, uint256 _totalStakeHolders, address[] _stakeHolders, uint256[] _weights) public Ownable()
-    // TokenDistributor(_targetToken, _totalStakeHolders, _stakeHolders) {
-    {
+    TokenDistributor(_targetToken, _totalStakeHolders, _stakeHolders) {
       targetToken = _targetToken;
       maxStakeHolders = _totalStakeHolders;
       if (_stakeHolders.length > 0) {

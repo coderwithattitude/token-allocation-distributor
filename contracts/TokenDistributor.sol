@@ -13,17 +13,17 @@ contract TokenDistributor is Ownable {
     event InsufficientTokenBalance( address indexed _token, uint256 _time );
     event TokensDistributed( address indexed _token, uint256 _total, uint256 _time );
 
-    // constructor ( address _targetToken, uint256 _totalStakeHolders, address[] _stakeHolders) public Ownable() {
-    //   targetToken = _targetToken;
-    //   maxStakeHolders = _totalStakeHolders;
-    //   if (_stakeHolders.length > 0) {
-    //     for (uint256 count = 0; count < stakeHolders.length && count < _totalStakeHolders; count++) {
-    //       if (stakeHolders[count] != 0x0) {
-    //         _setStakeholder( stakeHolders[count] );
-    //       }
-    //     }
-    //   }
-    // }
+    constructor ( address _targetToken, uint256 _totalStakeHolders, address[] _stakeHolders) public Ownable() {
+      targetToken = _targetToken;
+      maxStakeHolders = _totalStakeHolders;
+      if (_stakeHolders.length > 0) {
+        for (uint256 count = 0; count < stakeHolders.length && count < _totalStakeHolders; count++) {
+          if (stakeHolders[count] != 0x0) {
+            _setStakeholder( stakeHolders[count] );
+          }
+        }
+      }
+    }
 
     function isDistributionDue () public view returns (bool) {
       return getTokenBalance(targetToken) > 1;
