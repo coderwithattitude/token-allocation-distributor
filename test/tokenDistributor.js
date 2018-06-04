@@ -30,36 +30,29 @@ contract('==TokenDistributor==', (accounts) => {
       await newDistributor(
         token.address,
         stakeHoldersCount,
-        stakeHolders
+         stakeHolders
       ).then((_instance) => {
+
         instance = _instance;
-        web3 = instance.constructor.web3;
+        web3 = instance.constructor.web3
       })
     })
-
     console.log('Web3: ', web3.version.api ? web3.version.api : web3.version);
     console.log('Token: ', token.address)
     console.log('TokenDistributor: ',instance.address)
   })
 
-  describe('_setStakeholder()', () => {
+  describe('_setStakeHolder()', () => {
 
     it('Should fail to access setHolder', () => {
-      assert.strictEqual(instance._setStakeholder, undefined, 'setStakeholder function could be accessed');
+      assert.strictEqual(instance._setStakeHolder, undefined, 'setStakeHolder function could be accessed');
     })
   })
 
   describe('_transfer()', () => {
 
-    it('Should fail to access setHolder', () => {
+    it('Should fail to access transfer', () => {
       assert.strictEqual(instance._transfer, undefined, '_transfer function could be accessed');
-    })
-  })
-
-  describe('_transferRemaining()', () => {
-
-    it('Should fail to access setHolder', () => {
-      assert.strictEqual(instance._transferRemaining, undefined, '_transfer function could be accessed');
     })
   })
 })

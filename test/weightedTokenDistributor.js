@@ -66,7 +66,7 @@ contract("Weighted Token Distributor", (accounts) => {
     })
 
     it('Correctly counts stakeHolders', async () => {
-        const returnedCount = await weightedTokenDistributor.countStakeholders();
+        const returnedCount = await weightedTokenDistributor.countStakeHolders();
 
         const expectedCount = initialStakeholderCount;
 
@@ -81,7 +81,7 @@ contract("Weighted Token Distributor", (accounts) => {
         const returnedWeight = await weightedTokenDistributor.getTotalWeight();
 
         const expectedWeight = initialWeights.reduce((a,b) => a+b, 0);
-        
+
         assert.strictEqual(
             returnedWeight.toNumber(),
             expectedWeight,
