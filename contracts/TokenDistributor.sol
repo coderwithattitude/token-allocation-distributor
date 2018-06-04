@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.4.24;
 
 import "zeppelin-solidity/contracts/math/SafeMath.sol";
 import "zeppelin-solidity/contracts/ownership/Ownable.sol";
@@ -29,7 +29,7 @@ contract TokenDistributor is Ownable {
       return getTokenBalance(targetToken) > 1;
     }
 
-    function countStakeholders () public view returns (uint256) {
+    function countStakeHolders () public view returns (uint256) {
       return stakeHolders.length;
     }
 
@@ -42,8 +42,8 @@ contract TokenDistributor is Ownable {
       return _total.div(stakeHolders.length);
     }
 
-    function _setStakeholder (address _stakeHolder) internal onlyOwner returns (bool) {
-      require(countStakeholders() < maxStakeHolders, 'Max StakeHolders set');
+    function _setStakeHolder (address _stakeHolder) internal onlyOwner returns (bool) {
+      require(countStakeHolders() < maxStakeHolders, 'Max StakeHolders set');
       stakeHolders.push(_stakeHolder);
       return true;
     }

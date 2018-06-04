@@ -1,4 +1,4 @@
-pragma solidity ^0.4.23;
+pragma solidity ^0.4.24;
 
 import "./TokenDistributor.sol";
 
@@ -32,16 +32,16 @@ contract WeightedTokenDistributor is TokenDistributor {
     }
 
     function getPortion (uint256 _total) public view returns (uint256) {
-      revert('Kindly indicate stakeHolder');
+      revert('Kindly indicate stakeHolder and totalWeight');
     }
 
-    function _setStakeholder (address _stakeHolder, uint256 _weight) internal onlyOwner returns (bool) {
+    function _setStakeHolder (address _stakeHolder, uint256 _weight) internal onlyOwner returns (bool) {
       stakeHoldersWeight[_stakeHolder] = _weight;
-      require(super._setStakeholder(_stakeHolder));
+      require(super._setStakeHolder(_stakeHolder));
       return true;
     }
 
-    function _setStakeholder (address _stakeHolder) internal onlyOwner returns (bool) {
+    function _setStakeHolder (address _stakeHolder) internal onlyOwner returns (bool) {
       revert('Kindly set Weights for stakeHolder');
     }
 
