@@ -1,4 +1,4 @@
-pragma solidity 0.4.23;
+pragma solidity ^0.4.23;
 
 import "zeppelin-solidity/contracts/math/SafeMath.sol";
 import "zeppelin-solidity/contracts/ownership/Ownable.sol";
@@ -7,9 +7,9 @@ import "zeppelin-solidity/contracts/token/ERC20/ERC20Basic.sol";
 contract TokenDistributor is Ownable {
     using SafeMath for uint;
 
-    address targetToken;
-    address [] stakeHolders;
-    uint256 maxStakeHolders;
+    address public targetToken;
+    address [] public stakeHolders;
+    uint256 public maxStakeHolders;
     event InsufficientTokenBalance( address indexed _token, uint256 _time );
     event TokensDistributed( address indexed _token, uint256 _total, uint256 _time );
 

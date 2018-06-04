@@ -6,7 +6,7 @@ const deployConfig = {
 
 let me;
 const newDummy = () => DummyToken.new();
-const newDistriutor = (_token, _stakeHoldersCount, _stakeHolders) => {
+const newDistributor = (_token, _stakeHoldersCount, _stakeHolders) => {
   return TokenDistributor.new(
     _token, _stakeHoldersCount, _stakeHolders
   )
@@ -27,7 +27,7 @@ contract('==TokenDistributor==', (accounts) => {
     await newDummy().then((_instance) => {
       token = _instance;
     }).then( async () => {
-      await newDistriutor(
+      await newDistributor(
         token.address,
         stakeHoldersCount,
         stakeHolders
